@@ -118,7 +118,11 @@ class DatabaseHandler {
     const user = await Users
       .findOne({ email: email, password: password})
       .exec()
-    return user !== null
+    if (user === null) {
+      return false
+    } else {
+      return user._id.toString();
+    }
   }
 }
 

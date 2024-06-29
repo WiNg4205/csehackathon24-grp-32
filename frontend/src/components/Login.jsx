@@ -54,10 +54,11 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post( 'http://localhost:3000/login', {
+      const userId = await axios.post( 'http://localhost:3000/login', {
         email: email,
         password: password
       });
+
     } catch (error) {
       console.error('Error submitting data:', error);
     }

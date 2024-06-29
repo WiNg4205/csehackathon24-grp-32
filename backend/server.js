@@ -52,9 +52,9 @@ app.post('/register', (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const ret = await databaseHandler.auth(email, password);
-    if (ret) {
-      return res.status(200).json('Login successful');
+    const userId = await databaseHandler.auth(email, password);
+    if (userId) {
+      return res.status(200).json(userId);
     } else {
       return res.status(401).json('Login failed');
     }
