@@ -19,7 +19,7 @@ const NavBar = () => {
         }}
         onClick={(event) => {
           event.preventDefault();
-          navigate('/habits')
+          navigate('/dashboard')
         }}
       >
         <p>Habits</p>
