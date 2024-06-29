@@ -5,10 +5,16 @@ import Error from './Error.jsx';
 import { Link } from 'react-router-dom';
 // import { Link, useNavigate } from 'react-router-dom';
 import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
+import axios from 'axios';
 
 
 const Register = () => {
   // const { handleSubmit } = props;
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   // const [userEmail, setUserEmail] = useState('');
   // const [userPassword, setUserPassword] = useState('');
   // const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,6 +27,20 @@ const Register = () => {
 
   // const handleShowError = () => setErrorVisible(true);
   // const handleCloseError = () => setErrorVisible(false);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post( 'http://localhost:3000/register', {
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password: password
+      });
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
+  };
 
   return (
     <FullPageFlex>
@@ -51,8 +71,8 @@ const Register = () => {
             <Form.Control
               type="email"
               placeholder="Enter email"
-              // onChange={(event) => setUserEmail(event.target.value)}
-              onChange={(event) => event.preventDefault()}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
           <div style={{width: '100%', display: 'flex', flexDirection: 'row'}}>
@@ -61,8 +81,8 @@ const Register = () => {
               <Form.Control
                 type="text"
                 placeholder="Enter first name"
-                // onChange={(event) => setUserName(event.target.value)}
-                onChange={(event) => event.preventDefault()}
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formLastName">
@@ -70,8 +90,8 @@ const Register = () => {
               <Form.Control
                 type="text"
                 placeholder="Enter last name"
-                // onChange={(event) => setUserName(event.target.value)}
-                onChange={(event) => event.preventDefault()}
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}
               />
             </Form.Group>
           </div>
@@ -80,8 +100,8 @@ const Register = () => {
             <Form.Control
               type="text"
               placeholder="Enter username"
-              // onChange={(event) => setUserName(event.target.value)}
-              onChange={(event) => event.preventDefault()}
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -89,8 +109,8 @@ const Register = () => {
             <Form.Control
               type="password"
               placeholder="Enter password"
-              // onChange={(event) => setUserPassword(event.target.value)}
-              onChange={(event) => event.preventDefault()}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formConfirmPassword">
@@ -103,7 +123,7 @@ const Register = () => {
             />
           </Form.Group>
         </Form>
-        <Button className="mb-3" variant="primary" type="submit" form='registrationForm'>Submit</Button>
+        <Button className="mb-3" variant="primary" type="submit" form='registrationForm' onClick={handleSubmit}>Submit</Button>
         <div>
           Already have an account? Login <Link to={'/login'}>here!</Link>
         </div>
