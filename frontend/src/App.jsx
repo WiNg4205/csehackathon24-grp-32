@@ -6,6 +6,7 @@ import Register from './components/Register.jsx';
 import FriendsList from './components/friendslist/FriendsList.jsx';
 import Explore from './components/explore/Explore.jsx';
 import Dashboard from './components/Dashboard.jsx';
+import HabitsList from './components/habitslist/HabitsList.jsx';
 
 function App () {
   return (
@@ -16,6 +17,7 @@ function App () {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path='/friends' element={<FriendsList />} />
         <Route path='/explore' element={<Explore />} />
+        <Route path='/habits' element={<HabitsList />} />
         <Route path="*" element={<Navigate to='/login' />} />
       </Routes>
     </BrowserRouter>
