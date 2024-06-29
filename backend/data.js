@@ -124,6 +124,12 @@ class DatabaseHandler {
       return user._id.toString();
     }
   }
+
+  async getUser(userId) {
+    const Users = mongoose.model('Users', databaseHandler.userSchema)
+    const user = await Users.findOne({ userId: userId })
+    return user
+  }
 }
 
 const databaseHandler = new DatabaseHandler()
