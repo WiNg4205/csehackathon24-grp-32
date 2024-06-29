@@ -4,24 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Error from './Error.jsx';
 import { Link } from 'react-router-dom';
 // import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-
-export const StyledContainer = styled.div`
-  min-width: fit-content;
-  width: 30%;
-  border: 1px solid rgb(153, 153, 153);
-  border-radius: 1.1rem;
-  padding: 1rem;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-`
-
-export const FullPageCentered = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-`
+import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
 
 
 const Register = () => {
@@ -40,7 +23,7 @@ const Register = () => {
   // const handleCloseError = () => setErrorVisible(false);
 
   return (
-    <FullPageCentered>
+    <FullPageFlex>
       <Error
         show={errorVisible}
         // handleCloseError={handleCloseError}
@@ -72,11 +55,31 @@ const Register = () => {
               onChange={(event) => event.preventDefault()}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
+          <div style={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+            <Form.Group className="mb-3" controlId="formFirstName">
+              <Form.Label>First name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter first name"
+                // onChange={(event) => setUserName(event.target.value)}
+                onChange={(event) => event.preventDefault()}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formLastName">
+              <Form.Label>Last name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter last name"
+                // onChange={(event) => setUserName(event.target.value)}
+                onChange={(event) => event.preventDefault()}
+              />
+            </Form.Group>
+          </div>
+          <Form.Group className="mb-3" controlId="formUserName">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter name"
+              placeholder="Enter username"
               // onChange={(event) => setUserName(event.target.value)}
               onChange={(event) => event.preventDefault()}
             />
@@ -105,7 +108,7 @@ const Register = () => {
           Already have an account? Login <Link to={'/login'}>here!</Link>
         </div>
       </StyledContainer>
-    </FullPageCentered>
+    </FullPageFlex>
   );
 }
 

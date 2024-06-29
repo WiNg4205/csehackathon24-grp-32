@@ -6,24 +6,7 @@ import Error from './Error';
 import { Link } from 'react-router-dom';
 // import { apiCallBody } from '../api';
 // import { checkStringInput } from '../helper.js';
-import styled from 'styled-components';
-
-export const StyledContainer = styled.div`
-  min-width: fit-content;
-  width: 30%;
-  border: 1px solid rgb(153, 153, 153);
-  border-radius: 1.1rem;
-  padding: 1rem;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-`
-
-export const FullPageCentered = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-`
+import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
 
 const Login = () => {
   // const navigate = useNavigate();
@@ -67,7 +50,7 @@ const Login = () => {
   // }
 
   return (
-    <FullPageCentered>
+    <FullPageFlex>
       <Error
         show={errorVisible}
         // handleCloseError={handleCloseError}
@@ -107,7 +90,7 @@ const Login = () => {
           </div>
         </Form>
       </StyledContainer>
-    </FullPageCentered>
+    </FullPageFlex>
   );
 }
 
