@@ -45,17 +45,6 @@ process.on('SIGINT', () => {
   databaseHandler.disconnect()
 });
 
-// Example get request
-app.post('/test', (req, res, next) => {
-  try {
-    // const { a } = req.body;
-    console.log(req.body);
-    return res.json('Hello Browser');
-  } catch (err) {
-    next(err);
-  }
-});
-
 app.post('/addUser', (req, res, next) => {
   try {
     console.log(req.body)
