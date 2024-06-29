@@ -149,10 +149,10 @@ class DatabaseHandler {
     return user
   }
 
-  async addFriend(userId, friendId) {
+  async addFriend(userId, friendUsername) {
     const Users = mongoose.model('Users', databaseHandler.userSchema)
     const user1 = await Users.findById(userId)
-    const user2 = await Users.findById(friendId)
+    const user2 = await Users.findOne({ username: friendUsername })
 
     console.log(user1)
     if (!user1.friends.some(friend => friend.userId.equals(user2._id))) {

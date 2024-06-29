@@ -77,8 +77,8 @@ app.get('/friends', (req, res) => {
 });
 
 app.post('/addFriend', (req, res) => {
-  const { userId, friendId } = req.body;
-  const user = databaseHandler.addFriend(userId, friendId);
+  const { userId, friendUsername } = req.body;
+  const user = databaseHandler.addFriend(userId, friendUsername);
   return res.status(200).json(user.friends);
 });
 
