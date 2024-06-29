@@ -28,14 +28,14 @@ const Dashboard = () => {
                 <h1>Habits</h1>
             </div>
             <div className="row">
-                <button className="box" onClick={() => handleBoxClick(1)}>Physical</button>
-                <button className="box" onClick={() => handleBoxClick(2)}>Mental</button>
-                <button className="box" onClick={() => handleBoxClick(3)}>Intellectual</button>
+                <button className="box" onClick={() => handleBoxClick(1)}>Empty</button>
+                <button className="box" onClick={() => handleBoxClick(2)}>Empty</button>
+                <button className="box" onClick={() => handleBoxClick(3)}>Empty</button>
             </div>
             <div className="row">
-                <button className="box" onClick={() => handleBoxClick(4)}>Social</button>
-                <button className="box" onClick={() => handleBoxClick(5)}>Financial</button>
-                <button className="box" onClick={() => handleBoxClick(6)}>Spiritual</button>
+                <button className="box" onClick={() => handleBoxClick(4)}>Empty</button>
+                <button className="box" onClick={() => handleBoxClick(5)}>Empty</button>
+                <button className="box" onClick={() => handleBoxClick(6)}>Empty</button>
             </div>
             <NavBar />
         </div>
