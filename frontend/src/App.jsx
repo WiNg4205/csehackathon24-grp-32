@@ -5,6 +5,7 @@ import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import FriendsList from './components/friendslist/FriendsList.jsx';
 import Explore from './components/explore/Explore.jsx';
+import Dashboard from './components/Dashboard.jsx';
 
 function App () {
   return (
@@ -12,6 +13,7 @@ function App () {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register handleSubmit={null}/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path='/friends' element={<FriendsList />} />
         <Route path='/explore' element={<Explore />} />
         <Route path="*" element={<Navigate to='/login' />} />

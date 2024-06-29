@@ -30,6 +30,7 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+
   username: {
     type: String,
     required: true,
@@ -39,24 +40,31 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  habits: [{
-    habitId: {
-      type: Number,
-      required: true
-    },
-    images: [{
-      type: String,
-      required: false
-    }],
-    streak: {
-      type: Number,
-      required: true
-    },
-    postTime: {
-      type: Date,
-      required: true
-    },
-  }]
+  friends: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Users'
+  }],  
+  habits: {
+    type: Map,
+    of: new Schema({
+      habitId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Habits'
+      },
+      image: {
+        type: String,
+        required: false
+      },
+      streak: {
+        type: Number,
+        required: true
+      },
+      postTime: {
+        type: Date,
+        required: false
+      }
+    })
+  }
 });
 
 class DatabaseHandler {
@@ -86,6 +94,7 @@ class DatabaseHandler {
       email: email,
       username: username,
       password: password,
+      friends: [],
       habits: []
     };
 
@@ -108,9 +117,18 @@ class DatabaseHandler {
 
   async addUserHabit(userId, habitId) {
     const Users = mongoose.model('Users', databaseHandler.userSchema)
-    const user = await Users.findOne({ userId: userId })
-    user.habits.push(habitId)
-    user.save()
+    const user = await Users.findById(userId);
+    if (!user.habits.has(habitId)) {
+      const habit = {
+        habitId: habitId,
+        image: null,
+        streak: 0,
+        postTime: null
+      }
+      user.habits.set(habitId, habit)
+      user.save()
+      console.log(user)
+    }
   }
 
   async auth(email, password) {
@@ -127,8 +145,45 @@ class DatabaseHandler {
 
   async getUser(userId) {
     const Users = mongoose.model('Users', databaseHandler.userSchema)
-    const user = await Users.findOne({ userId: userId })
+    const user = await Users.findById(userId);
     return user
+  }
+
+  async addFriend(userId, friendId) {
+    const Users = mongoose.model('Users', databaseHandler.userSchema)
+    const user1 = await Users.findById(userId)
+    const user2 = await Users.findById(friendId)
+
+    console.log(user1)
+    if (!user1.friends.some(friend => friend.userId.equals(user2._id))) {
+      user1.friends.push(user2);
+    }
+    if (!user2.friends.some(friend => friend.userId.equals(user1._id))) {
+      user2.friends.push(user1);
+    }
+    user1.save()
+    user2.save()
+  }
+
+  async uploadStreak(userId, habitId, image) {
+    const Users = mongoose.model('Users', databaseHandler.userSchema)
+    const user = await Users.findById(userId)
+    habit = user.habits[habitId]
+    habit.streak += 1
+    habit.image = image
+    habit.postTime = new Date()
+    user.save()
+  }
+
+  async hasUploadedStreak(userId, habitId) {
+    const Users = mongoose.model('Users', databaseHandler.userSchema)
+    const user = await Users.findById(userId);
+
+    const habit = user.habits.find(h => h.habitId === habitId);
+
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+    return new Date(habit.postTime) >= twoDaysAgo;
   }
 }
 

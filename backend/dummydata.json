@@ -1,0 +1,64 @@
+{
+    "users": [
+        {
+            "firstName": "UNSW",
+            "lastName": "CSE",
+            "email": "unsw@cse.com",
+            "username": "csesoc",
+            "password": "iluvhackathons"
+        },
+        {
+            "firstName": "Bobby",
+            "lastName": "Lee",
+            "email": "bob@badfriends.au",
+            "username": "boblee",
+            "password": "lol"
+        },
+        {
+            "firstName": "Max",
+            "lastName": "Verstappen",
+            "email": "max@redbull.redbull",
+            "username": "f1",
+            "password": "wings"
+        },
+        {
+            "firstName": "Ronald",
+            "lastName": "Mcdonald",
+            "email": "ron@maccas.bigmac",
+            "username": "chips",
+            "password": "nuggets"
+        }
+    ],
+    "habits": [
+        {
+            "name": "Walking",
+            "description": "Walk somewhere",
+            "users": []
+        },
+        {
+            "name": "Play a sport",
+            "description": "Play any sport",
+            "users": []
+        },
+        {
+            "name": "Learn a new skill",
+            "description": "Learn any skill",
+            "users": []
+        },
+        {
+            "name": "Meditate",
+            "description": "Acquire tranquility",
+            "users": []
+        },
+        {
+            "name": "Read a book",
+            "description": "Read any book",
+            "users": []
+        },
+        {
+            "name": "Cook a recipe",
+            "description": "Cook any recipe",
+            "users": []
+        }
+    ]
+}

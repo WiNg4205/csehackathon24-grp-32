@@ -1,6 +1,7 @@
 import { NavBarContainer } from "./styledComponents";
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
+import './NavBar.css';
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -11,48 +12,51 @@ const NavBar = () => {
         style={{
           flex: 1,
           borderRadius: 0,
-          margin: '0px 1px',
+          margin: '1px 1px',
           border: '1px solid black',
-          fontWeight: 'bold'
+          height: '12vh',
+          padding: '0px 1px'
         }}
         onClick={(event) => {
           event.preventDefault();
           navigate('/habits')
         }}
       >
-        Habits
+        <p>Habits</p>
       </Button>
       <Button
         variant="primary"
         style={{
           flex: 1,
           borderRadius: 0,
-          margin: '0px 1px',
+          margin: '1px 1px',
           border: '1px solid black',
-          fontWeight: 'bold'
+          height: '12vh',
+          padding: '0px 1px'
         }}
         onClick={(event) => {
           event.preventDefault();
           navigate('/friends')
         }}
       >
-        Friends
+        <p>Friends</p>
       </Button>
       <Button
         variant="primary"
         style={{
           flex: 1,
           borderRadius: 0,
-          margin: '0px 1px',
+          margin: '1px 1px',
           border: '1px solid black',
-          fontWeight: 'bold'
+          height: '12vh',
+          padding: '0px 1px'
         }}
         onClick={(event) => {
           event.preventDefault();
           navigate('/explore')
         }}
       >
-        Explore
+        <p>Explore</p>
       </Button>
     </NavBarContainer>
   );
