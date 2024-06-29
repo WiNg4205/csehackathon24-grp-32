@@ -1,6 +1,6 @@
 import databaseHandler from './data.js'
 import express, { json } from 'express'
-import { login, register } from './auth.js'
+import cors from 'cors'
 
 const PORT = 3000
 const HOST = 'localhost'
@@ -9,6 +9,7 @@ const HOST = 'localhost'
 const app = express()
 
 app.use(json())
+app.use(cors())
 
 // test request
 app.get('/test', (req, res, next) => {
@@ -17,12 +18,6 @@ app.get('/test', (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-// register request
-app.put('/register', (req, res) => {
-  const { email, password, username, nameFirst, nameLast } = req.body;
-  res.json(register(email, password, username, nameFirst, nameLast));
 });
 
 const server = app.listen(PORT, HOST, () => {
@@ -37,29 +32,77 @@ process.on('SIGINT', () => {
 });
 
 // register request
-app.put('/register', (req, res) => {
+app.post('/register', (req, res) => {
   try {
+    
     const { firstName, lastName, email, username, password } = req.body
-    databaseHandler.addUser(firstName, lastName, email, username, password)
-    return res.json('User added');
-  } catch (err) {
-    next(err);
+    
+    databaseHandler.addUser(firstName, lastName, email, username, password).then((ret) => {
+      if (ret) {
+        return res.status(201).json('User added');
+      } else {
+        return res.status(409).json('Username already used');
+      }
+    })} catch (error) {
+      return res.status(500).json('Internal Server Error');
   }
 });
 
 // login request
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  console.log(email, password)
-  res.json(login(email, password));
+app.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const userId = await databaseHandler.auth(email, password);
+    if (userId) {
+      return res.status(200).json(userId);
+    } else {
+      return res.status(401).json('Login failed');
+    }
+  } catch (error) {
+    console.err('Error during login:', err);
+    return res.status(500).json('Internal Server Error');
+  }
 });
 
-app.post('/addHabit', (req, res, next) => {
-  try {
-    const { name, description, users } = req.body
-    databaseHandler.addHabit(name, description, users)
-    return res.json('Habit added');
-  } catch (err) {
-    next(err);
-  }
+app.get('/profile', (req, res) => {
+  const { userId } = req.body;
+  const user = databaseHandler.getUser(userId);
+  return res.status(200).json(user);
+});
+
+app.get('/friends', (req, res) => {
+  const { userId } = req.body;
+  const user = databaseHandler.getUser(userId);
+  return res.status(200).json(user.friends);
+});
+
+app.post('/addFriend', (req, res) => {
+  const { userId, friendId } = req.body;
+  const user = databaseHandler.addFriend(userId, friendId);
+  return res.status(200).json(user.friends);
+});
+
+app.post('/uploadStreak', (req, res) => {
+  const { userId, habitId, image } = req.body;
+  const hasUploadedStreak = databaseHandler.uploadStreak(userId, habitId, image);
+  return res.status(200).json(hasUploadedStreak);
+});
+
+app.get('/hasUploadedStreak', (req, res) => {
+  const { userId, habitId } = req.body;
+  const user = databaseHandler.hasUploadedStreak(userId, habitId);
+
+  return res.status(200).json(user.uploadedStreak);
+});
+
+app.post('/addUserHabit', (req, res) => {
+  const { userId, habitId } = req.body;
+  databaseHandler.addUserHabit(userId, habitId);
+  return res.status(200).json('User habit added');
+});
+
+app.post('/addHabit', (req, res) => {
+  const { name, description, users } = req.body
+  databaseHandler.addHabit(name, description, users)
+  return res.status(200).json('Habit added')
 });
