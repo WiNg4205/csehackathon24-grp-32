@@ -1,12 +1,14 @@
-import express from 'express'
+import express, {json} from 'express'
 
-import { login, register } from './auth'
+import { login, register } from './auth.js'
 
 const PORT = 3000
 const HOST = 'localhost'
 
 
 const app = express()
+
+app.use(json())
 
 // test request
 app.get('/test', (req, res, next) => {
@@ -20,6 +22,7 @@ app.get('/test', (req, res, next) => {
 // login request
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password)
   res.json(login(email, password));
 });
 
