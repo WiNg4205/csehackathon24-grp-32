@@ -1,15 +1,22 @@
 import databaseHandler from './data.js'
 import express, { json } from 'express'
 import cors from 'cors'
+import multer from 'multer'
+import bodyParser from 'body-parser'
 
 const PORT = 3000
 const HOST = 'localhost'
 
 
-const app = express()
+const app = express();
 
 app.use(json())
 app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 // test request
 app.get('/test', (req, res, next) => {
@@ -64,10 +71,24 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/userDetails', (req, res) => {
+app.get('/userDetails', async (req, res) => {
   const { userId } = req.query;
-  const user = databaseHandler.getUser(userId);
-  return res.status(200).json(user);
+  try {
+    const user = await databaseHandler.getUser(userId);
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/habitDetails', async (req, res) => {
+  const { habitId } = req.query;
+  try {
+    const habit = await databaseHandler.getHabit(habitId);
+    return res.status(200).json(habit);
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.get('/friends', (req, res) => {
@@ -82,10 +103,16 @@ app.post('/addFriend', (req, res) => {
   return res.status(200).json(user.friends);
 });
 
-app.post('/uploadStreak', (req, res) => {
-  const { userId, habitId, image } = req.body;
-  const hasUploadedStreak = databaseHandler.uploadStreak(userId, habitId, image);
-  return res.status(200).json(hasUploadedStreak);
+app.post('/uploadStreak', upload.single('file'), (req, res) => {
+  try {
+    const { userId, habitId } = req.body;
+    const image = req.file;    
+    const hasUploadedStreak = databaseHandler.uploadStreak(userId, habitId, image);
+    return res.status(200).json({ success: hasUploadedStreak });
+  } catch (error) {
+    console.error('Error uploading streak:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.get('/hasUploadedStreak', (req, res) => {
