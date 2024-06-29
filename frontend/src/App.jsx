@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Login } from './frontend/Login.jsx';
+import Login from './frontend/Login.jsx';
 // import { Register } from './frontend/Register.jsx';
 
 function App () {

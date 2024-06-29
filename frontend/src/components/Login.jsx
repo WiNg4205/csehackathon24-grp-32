@@ -26,14 +26,6 @@ export const FullPageCentered = styled.div`
 `
 
 const Login = () => {
-  return (
-    <div>
-      hi
-    </div>
-  )
-}
-
-const Login = () => {
   // const navigate = useNavigate();
   // const [userEmail, setUserEmail] = useState('');
   // const [userPassword, setUserPassword] = useState('');
