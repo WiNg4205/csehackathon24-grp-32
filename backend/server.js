@@ -76,6 +76,31 @@ app.get('/friends', (req, res) => {
   return res.status(200).json(user.friends);
 });
 
+app.post('/addFriend', (req, res) => {
+  const { userId, friendId } = req.body;
+  const user = databaseHandler.addFriend(userId, friendId);
+  return res.status(200).json(user.friends);
+});
+
+app.post('/uploadStreak', (req, res) => {
+  const { userId, habitId, image } = req.body;
+  const hasUploadedStreak = databaseHandler.uploadStreak(userId, habitId, image);
+  return res.status(200).json(hasUploadedStreak);
+});
+
+app.get('/hasUploadedStreak', (req, res) => {
+  const { userId, habitId } = req.body;
+  const user = databaseHandler.hasUploadedStreak(userId, habitId);
+
+  return res.status(200).json(user.uploadedStreak);
+});
+
+app.post('/addUserHabit', (req, res) => {
+  const { userId, habitId } = req.body;
+  databaseHandler.addUserHabit(userId, habitId);
+  return res.status(200).json('User habit added');
+});
+
 app.post('/addHabit', (req, res) => {
   const { name, description, users } = req.body
   databaseHandler.addHabit(name, description, users)
