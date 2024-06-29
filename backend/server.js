@@ -1,5 +1,5 @@
-import express, {json} from 'express'
-
+import databaseHandler from './data.js'
+import express, { json } from 'express'
 import { login, register } from './auth.js'
 
 const PORT = 3000
@@ -33,12 +33,26 @@ app.put('/register', (req, res) => {
 });
 
 const server = app.listen(PORT, HOST, () => {
-  console.log(`Server listening on port ${PORT} at ${HOST}`);
+  // DO NOT CHANGE THIS LINE
+  console.log(`⚡️ Server listening on port ${PORT} at ${HOST}`);
+  databaseHandler.connect()
+
 })
 
 // For coverage, handle Ctrl+C gracefully
 process.on('SIGINT', () => {
   server.close(() => console.log('Shutting down server gracefully.'));
+  databaseHandler.disconnect()
 });
 
+app.post('/addUser', (req, res, next) => {
+  try {
+    console.log(req.body)
+    const { userId, firstName, lastName, username, password } = req.body
+    databaseHandler.addUser(userId, firstName, lastName, username, password)
+    return res.json('User added');
+  } catch (err) {
+    next(err);
+  }
+});
 
