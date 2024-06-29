@@ -7,9 +7,12 @@ import { Link } from 'react-router-dom';
 // import { apiCallBody } from '../api';
 // import { checkStringInput } from '../helper.js';
 import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
+import axios from 'axios';
 
 const Login = () => {
   // const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   // const [userEmail, setUserEmail] = useState('');
   // const [userPassword, setUserPassword] = useState('');
   // const [errorMessage, setErrorMessage] = useState('');
@@ -49,6 +52,17 @@ const Login = () => {
   //   }
   // }
 
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post( 'http://localhost:3000/login', {
+        email: email,
+        password: password
+      });
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
+  };
+
   return (
     <FullPageFlex>
       <Error
@@ -71,8 +85,8 @@ const Login = () => {
             <Form.Control
               type="email"
               placeholder="Enter email"
-              // onChange={(event) => setUserEmail(event.target.value)}
-              onChange={(event) => event.preventDefault()}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -80,11 +94,11 @@ const Login = () => {
             <Form.Control
               type="password"
               placeholder="Enter password"
-              // onChange={(event) => setUserPassword(event.target.value)}
-              onChange={(event) => event.preventDefault()}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
-          <Button className="mb-3" variant="primary" type="submit" form='loginForm'>Submit</Button>
+          <Button className="mb-3" variant="primary" type="submit" form='loginForm' onClick={handleSubmit}>Submit</Button>
           <div>
             Don&apos;t have an account yet? Sign up <Link to={'/register'}>here!</Link>
           </div>
