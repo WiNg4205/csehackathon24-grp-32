@@ -36,6 +36,17 @@ export const FriendButtonContainer = styled.button`
   margin: 5px 0;
 `
 
+export const HabitContainer = styled.button`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 150px;
+  min-height: fit-content;
+  border-radius: 0;
+  border: 1px solid rgb(158, 158, 158);
+  margin: 5px 0;
+`
+
 export const NavBarContainer = styled.div`
   display: flex;
   flex-direction: row;
