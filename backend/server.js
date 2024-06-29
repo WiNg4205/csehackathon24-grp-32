@@ -1,5 +1,6 @@
 import databaseHandler from './data.js'
 import express, { json } from 'express'
+import cors from 'cors'
 
 const PORT = 3000
 const HOST = 'localhost'
@@ -8,6 +9,7 @@ const HOST = 'localhost'
 const app = express()
 
 app.use(json())
+app.use(cors())
 
 // test request
 app.get('/test', (req, res, next) => {
@@ -32,16 +34,17 @@ process.on('SIGINT', () => {
 // register request
 app.post('/register', (req, res) => {
   try {
+    
     const { firstName, lastName, email, username, password } = req.body
-    databaseHandler.addUser(firstName, lastName, email, username, password)
-    if (ret) {
-      return res.status(201).json('User added');
-    } else {
-      return res.status(409).json('Username already used');
-    }
-  } catch (err) {
-    console.err('Error during register:', err);
-    return res.status(500).json('Internal Server Error');
+    
+    databaseHandler.addUser(firstName, lastName, email, username, password).then((ret) => {
+      if (ret) {
+        return res.status(201).json('User added');
+      } else {
+        return res.status(409).json('Username already used');
+      }
+    })} catch (error) {
+      return res.status(500).json('Internal Server Error');
   }
 });
 
