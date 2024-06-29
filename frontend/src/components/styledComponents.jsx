@@ -25,7 +25,18 @@ export const List = styled.div`
   overflow-y: scroll;
 `
 
-export const FriendButtonContainer = styled.button`
+export const ButtonContainer = styled.button`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 150px;
+  min-height: fit-content;
+  border-radius: 0;
+  border: 1px solid rgb(158, 158, 158);
+  margin: 5px 0;
+`
+
+export const HabitContainer = styled.button`
   display: flex;
   flex-direction: row;
   width: 100%;

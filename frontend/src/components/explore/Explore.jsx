@@ -1,0 +1,111 @@
+import { useState } from "react";
+import { FullPageFlex } from "../styledComponents";
+import NavBar from "../NavBar";
+import HabitButton from "./HabitButton";
+import { List } from "../styledComponents";
+
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+
+const Explore = () => {
+  // const [ id ] = props;
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <FullPageFlex>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add a habit</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>New habit</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Insert name"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Control
+                type="text"
+                placeholder="Insert description"
+                autoFocus
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleClose}
+          >
+            Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '1rem'
+        }}
+      >
+        <h2>
+          Explore Page
+        </h2>
+        <Button
+          variant="primary"
+          onClick={handleShow}
+          style={{maxWidth: 'max-content'}}
+        >
+          Add Habit
+        </Button>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          border: '1px solid',
+      }}>
+        <List>
+          {/* {
+            friendsData.map((friend, key) => (
+              <FriendButton
+                key={key}
+                onCLick={(event) => {
+                  event.preventDefault();
+                  navigate
+                }}
+                  userName={friend.name}
+                  habits={friend.habits}
+              />
+            ))
+          } */}
+          <HabitButton />
+          <HabitButton />
+          <HabitButton />
+          <HabitButton />
+          <HabitButton />
+          <HabitButton />
+        </List>
+      </div>
+      <NavBar />
+    </FullPageFlex>
+  );
+}
+
+export default Explore;

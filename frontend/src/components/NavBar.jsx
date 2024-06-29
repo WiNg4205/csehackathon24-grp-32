@@ -19,7 +19,7 @@ const NavBar = () => {
         }}
         onClick={(event) => {
           event.preventDefault();
-          navigate('/habits')
+          navigate('/dashboard')
         }}
       >
         <p>Habits</p>
@@ -53,10 +53,10 @@ const NavBar = () => {
         }}
         onClick={(event) => {
           event.preventDefault();
-          navigate('/profile')
+          navigate('/explore')
         }}
       >
-        <p>My Profile</p>
+        <p>Explore</p>
       </Button>
     </NavBarContainer>
   );

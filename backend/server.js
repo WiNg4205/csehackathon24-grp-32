@@ -3,6 +3,7 @@ import express, { json } from 'express'
 import cors from 'cors'
 import multer from 'multer'
 import bodyParser from 'body-parser'
+import dummyData from './dummydata.json' assert { type: "json" }
 
 const PORT = 3000
 const HOST = 'localhost'
@@ -25,17 +26,6 @@ app.get('/test', (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-const server = app.listen(PORT, HOST, () => {
-  console.log(`⚡️ Server listening on port ${PORT} at ${HOST}`);
-  databaseHandler.connect()
-
-})
-
-process.on('SIGINT', () => {
-  server.close(() => console.log('Shutting down server gracefully.'));
-  databaseHandler.disconnect()
 });
 
 // register request
@@ -132,4 +122,23 @@ app.post('/addHabit', (req, res) => {
   const { name, description, users } = req.body
   databaseHandler.addHabit(name, description, users)
   return res.status(200).json('Habit added')
+});
+
+// Runs server, keep at end of server.js for clarity
+const server = app.listen(PORT, HOST, () => {
+  console.log(`⚡️ Server listening on port ${PORT} at ${HOST}`);
+  databaseHandler.connect()
+  for (const user of dummyData.users) {
+    let { firstName, lastName, email, username, password} = user
+    databaseHandler.addUser(firstName, lastName, email, username, password)
+  }
+  for (const habit of dummyData.habits) {
+    let { name, description, users } = habit
+    databaseHandler.addHabit(name, description, users)
+  }
+})
+
+process.on('SIGINT', () => {
+  server.close(() => console.log('Shutting down server gracefully.'));
+  databaseHandler.disconnect()
 });
