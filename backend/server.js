@@ -47,7 +47,6 @@ process.on('SIGINT', () => {
 
 app.post('/addUser', (req, res, next) => {
   try {
-    console.log(req.body)
     const { userId, firstName, lastName, username, password } = req.body
     databaseHandler.addUser(userId, firstName, lastName, username, password)
     return res.json('User added');

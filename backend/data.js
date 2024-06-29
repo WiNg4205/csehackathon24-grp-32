@@ -1,68 +1,68 @@
 import mongoose from 'mongoose'
 const { Schema } = mongoose
-const uri = `mongodb://localhost:27017`
+const uri = `mongodb://localhost:27017/mydb`
+
+const habitSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Users'
+  }]
+});
+
+const userSchema = new Schema({
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  habits: [{
+    habitId: {
+      type: Number,
+      required: true
+    },
+    images: [{
+      type: String,
+      required: false
+    }],
+    streak: {
+      type: Number,
+      required: true
+    },
+    postTime: {
+      type: Date,
+      required: true
+    },
+  }]
+});
 
 class DatabaseHandler {
-  static habitSchema = new Schema({
-    name: {
-      type: String,
-      required: true
-    },
-    description: {
-      type: String,
-      required: true
-    },
-    users: [{
-      type: Number,
-      required: true
-    }]
-  });
-
-  static userSchema = new Schema({
-    userId: {
-      type: Number,
-      required: true,
-      unique: true
-    },
-    firstName: {
-      type: String,
-      required: true
-    },
-    lastName: {
-      type: String,
-      required: true
-    },
-    username: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    password: {
-      type: String,
-      required: true
-    },
-    habits: [{
-      habitId: {
-        type: Number,
-        required: true
-      },
-      images: [{
-        type: String,
-        required: false
-      }],
-      streak: {
-        type: Number,
-        required: true
-      },
-      postTime: {
-        type: Date,
-        required: true
-      },
-    }]
-  });
+  constructor() {
+    this.Users = mongoose.model('Users', userSchema);
+    this.Habits = mongoose.model('Habits', habitSchema);
+  }
 
   async connect() {
-    mongoose.connect(uri)
+    mongoose.connect(uri);
   }
 
   async disconnect() {
@@ -72,7 +72,6 @@ class DatabaseHandler {
   async addUser(userId, firstName, lastName, username, password) {
     const Users = mongoose.model('Users', databaseHandler.userSchema)
     const user = {
-      userId: userId,
       firstName: firstName,
       lastName: lastName,
       username: username,
