@@ -6,7 +6,7 @@ import Error from './Error';
 import { Link } from 'react-router-dom';
 // import { apiCallBody } from '../api';
 // import { checkStringInput } from '../helper.js';
-import { StyledContainer, FullPageCentered } from './styledComponents.jsx';
+import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
 
 const Login = () => {
   // const navigate = useNavigate();
@@ -50,7 +50,7 @@ const Login = () => {
   // }
 
   return (
-    <FullPageCentered>
+    <FullPageFlex>
       <Error
         show={errorVisible}
         // handleCloseError={handleCloseError}
@@ -90,7 +90,7 @@ const Login = () => {
           </div>
         </Form>
       </StyledContainer>
-    </FullPageCentered>
+    </FullPageFlex>
   );
 }
 

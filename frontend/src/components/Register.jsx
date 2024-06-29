@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Error from './Error.jsx';
 import { Link } from 'react-router-dom';
 // import { Link, useNavigate } from 'react-router-dom';
-import { StyledContainer, FullPageCentered } from './styledComponents.jsx';
+import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
 
 
 const Register = () => {
@@ -23,7 +23,7 @@ const Register = () => {
   // const handleCloseError = () => setErrorVisible(false);
 
   return (
-    <FullPageCentered>
+    <FullPageFlex>
       <Error
         show={errorVisible}
         // handleCloseError={handleCloseError}
@@ -55,11 +55,31 @@ const Register = () => {
               onChange={(event) => event.preventDefault()}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
+          <div style={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+            <Form.Group className="mb-3" controlId="formFirstName">
+              <Form.Label>First name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter first name"
+                // onChange={(event) => setUserName(event.target.value)}
+                onChange={(event) => event.preventDefault()}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formLastName">
+              <Form.Label>Last name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter last name"
+                // onChange={(event) => setUserName(event.target.value)}
+                onChange={(event) => event.preventDefault()}
+              />
+            </Form.Group>
+          </div>
+          <Form.Group className="mb-3" controlId="formUserName">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter name"
+              placeholder="Enter username"
               // onChange={(event) => setUserName(event.target.value)}
               onChange={(event) => event.preventDefault()}
             />
@@ -88,7 +108,7 @@ const Register = () => {
           Already have an account? Login <Link to={'/login'}>here!</Link>
         </div>
       </StyledContainer>
-    </FullPageCentered>
+    </FullPageFlex>
   );
 }
 
