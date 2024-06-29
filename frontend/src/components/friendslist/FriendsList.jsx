@@ -2,10 +2,11 @@ import { useState } from "react";
 import { FullPageFlex, List } from "../styledComponents";
 import FriendButton from "./FriendButton";
 import NavBar from "../NavBar";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
 
 const FriendsList = () => {
   // const [ friendsData ] = useState(null);
@@ -46,11 +47,26 @@ const FriendsList = () => {
   //     </FullPageFlex>
   //   )
   // }
+  const navigate = useNavigate();
+
+  const [ newFriendName, setNewFriendName ] = useState('');
 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleSubmit = async () => {
+    try {
+      const userId = await axios.post( 'http://localhost:3000/login', {
+        userId: localStorage.getItem('currentUserId'),
+        friendUsername: newFriendName
+      });
+      localStorage.setItem('currentUserID', userId);
+      navigate('/friends');
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
 
   return (
     <FullPageFlex>
@@ -66,6 +82,9 @@ const FriendsList = () => {
                 type="text"
                 placeholder="Insert username"
                 autoFocus
+                onChange={(event) => {
+                  setNewFriendName(event.target.value)
+                }}
               />
             </Form.Group>
           </Form>
@@ -74,7 +93,7 @@ const FriendsList = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Add
           </Button>
         </Modal.Footer>

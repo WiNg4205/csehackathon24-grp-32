@@ -44,7 +44,10 @@ const Explore = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button
+            variant="primary"
+            onClick={handleClose}
+          >
             Add
           </Button>
         </Modal.Footer>

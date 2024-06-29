@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Error from './Error.jsx';
 import { Link } from 'react-router-dom';
-// import { Link, useNavigate } from 'react-router-dom';
 import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
 import axios from 'axios';
 
@@ -19,14 +18,12 @@ const Register = () => {
   // const [userPassword, setUserPassword] = useState('');
   // const [confirmPassword, setConfirmPassword] = useState('');
   // const [userName, setUserName] = useState('');
-  // const [errorMessage, setErrorMessage] = useState('');
-  const [errorMessage] = useState('');
-  // const [errorVisible, setErrorVisible] = useState(false);
-  const [errorVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorVisible, setErrorVisible] = useState(false);
   // const navigate = useNavigate();
 
-  // const handleShowError = () => setErrorVisible(true);
-  // const handleCloseError = () => setErrorVisible(false);
+  const handleShowError = () => setErrorVisible(true);
+  const handleCloseError = () => setErrorVisible(false);
 
   const handleSubmit = async () => {
     try {
@@ -37,8 +34,11 @@ const Register = () => {
         username: username,
         password: password
       });
+      console.log('register response = ', response)
     } catch (error) {
       console.error('Error submitting data:', error);
+      setErrorMessage(error);
+      handleShowError();
     }
   };
 
@@ -46,8 +46,7 @@ const Register = () => {
     <FullPageFlex>
       <Error
         show={errorVisible}
-        // handleCloseError={handleCloseError}
-        handleCloseError={(event) => event.preventDefault()}
+        handleCloseError={handleCloseError}
         message={errorMessage}
       />
       <StyledContainer>
@@ -63,7 +62,10 @@ const Register = () => {
           //     setErrorMessage(error.toString());
           //   }
           // }}
-          onSubmit={(event) => event.preventDefault()}
+          onSubmit={(event) => {
+            event.preventDefault();
+            // navigate('/dashboard');
+          }}
         >
           <h2>Register</h2>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -71,7 +73,6 @@ const Register = () => {
             <Form.Control
               type="email"
               placeholder="Enter email"
-              value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
@@ -81,7 +82,6 @@ const Register = () => {
               <Form.Control
                 type="text"
                 placeholder="Enter first name"
-                value={firstName}
                 onChange={(event) => setFirstName(event.target.value)}
               />
             </Form.Group>
@@ -90,7 +90,6 @@ const Register = () => {
               <Form.Control
                 type="text"
                 placeholder="Enter last name"
-                value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
               />
             </Form.Group>
@@ -100,7 +99,6 @@ const Register = () => {
             <Form.Control
               type="text"
               placeholder="Enter username"
-              value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
           </Form.Group>
@@ -109,7 +107,6 @@ const Register = () => {
             <Form.Control
               type="password"
               placeholder="Enter password"
-              value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
