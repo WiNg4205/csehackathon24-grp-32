@@ -64,14 +64,14 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/profile', (req, res) => {
-  const { userId } = req.body;
+app.get('/userDetails', (req, res) => {
+  const { userId } = req.query;
   const user = databaseHandler.getUser(userId);
   return res.status(200).json(user);
 });
 
 app.get('/friends', (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.query;
   const user = databaseHandler.getUser(userId);
   return res.status(200).json(user.friends);
 });
@@ -89,7 +89,7 @@ app.post('/uploadStreak', (req, res) => {
 });
 
 app.get('/hasUploadedStreak', (req, res) => {
-  const { userId, habitId } = req.body;
+  const { userId, habitId } = req.query;
   const user = databaseHandler.hasUploadedStreak(userId, habitId);
 
   return res.status(200).json(user.uploadedStreak);
