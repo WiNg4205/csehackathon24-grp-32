@@ -1,18 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login.jsx';
-// import { Register } from './frontend/Register.jsx';
+import Register from './components/Register.jsx';
+import Dashboard from './components/Dashboard.jsx';
 
 function App () {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
-        {/* <Route path='/register' element={<Register handleSubmit={null}/>} />
-        <Route path='/dashboard' element={<Dashboard handleClick={clickNewPresentation} />} />
-        <Route path='/:presentationId' element={<Presentation />} />
-        <Route path="*" element={<Navigate to='/login' />} /> */}
+        <Route path='/login' element={<Login />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/register' element={<Register handleSubmit={null}/>} />
+        <Route path="*" element={<Navigate to='/login' />} />
       </Routes>
     </BrowserRouter>
   );
