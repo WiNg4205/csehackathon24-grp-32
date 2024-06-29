@@ -26,6 +26,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  email: {
+    type: String,
+    required: true
+  },
   username: {
     type: String,
     required: true,
@@ -69,11 +73,12 @@ class DatabaseHandler {
     mongoose.disconnect()
   }
 
-  async addUser(userId, firstName, lastName, username, password) {
+  async addUser(firstName, lastName, email, username, password) {
     const Users = mongoose.model('Users', databaseHandler.userSchema)
     const user = {
       firstName: firstName,
       lastName: lastName,
+      email: email,
       username: username,
       password: password,
       habits: []

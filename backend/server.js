@@ -19,13 +19,6 @@ app.get('/test', (req, res, next) => {
   }
 });
 
-// login request
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  console.log(email, password)
-  res.json(login(email, password));
-});
-
 // register request
 app.put('/register', (req, res) => {
   const { email, password, username, nameFirst, nameLast } = req.body;
@@ -33,25 +26,40 @@ app.put('/register', (req, res) => {
 });
 
 const server = app.listen(PORT, HOST, () => {
-  // DO NOT CHANGE THIS LINE
   console.log(`⚡️ Server listening on port ${PORT} at ${HOST}`);
   databaseHandler.connect()
 
 })
 
-// For coverage, handle Ctrl+C gracefully
 process.on('SIGINT', () => {
   server.close(() => console.log('Shutting down server gracefully.'));
   databaseHandler.disconnect()
 });
 
-app.post('/addUser', (req, res, next) => {
+// register request
+app.put('/register', (req, res) => {
   try {
-    const { userId, firstName, lastName, username, password } = req.body
-    databaseHandler.addUser(userId, firstName, lastName, username, password)
+    const { firstName, lastName, email, username, password } = req.body
+    databaseHandler.addUser(firstName, lastName, email, username, password)
     return res.json('User added');
   } catch (err) {
     next(err);
   }
 });
 
+// login request
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+  console.log(email, password)
+  res.json(login(email, password));
+});
+
+app.post('/addHabit', (req, res, next) => {
+  try {
+    const { name, description, users } = req.body
+    databaseHandler.addHabit(name, description, users)
+    return res.json('Habit added');
+  } catch (err) {
+    next(err);
+  }
+});
