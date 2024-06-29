@@ -1,6 +1,5 @@
 import databaseHandler from './data.js'
 import express, { json } from 'express'
-import { login, register } from './auth.js'
 
 const PORT = 3000
 const HOST = 'localhost'
@@ -19,12 +18,6 @@ app.get('/test', (req, res, next) => {
   }
 });
 
-// register request
-app.put('/register', (req, res) => {
-  const { email, password, username, nameFirst, nameLast } = req.body;
-  res.json(register(email, password, username, nameFirst, nameLast));
-});
-
 const server = app.listen(PORT, HOST, () => {
   console.log(`⚡️ Server listening on port ${PORT} at ${HOST}`);
   databaseHandler.connect()
@@ -37,29 +30,39 @@ process.on('SIGINT', () => {
 });
 
 // register request
-app.put('/register', (req, res) => {
+app.post('/register', (req, res) => {
   try {
     const { firstName, lastName, email, username, password } = req.body
     databaseHandler.addUser(firstName, lastName, email, username, password)
-    return res.json('User added');
+    if (ret) {
+      return res.status(201).json('User added');
+    } else {
+      return res.status(409).json('Username already used');
+    }
   } catch (err) {
-    next(err);
+    console.err('Error during register:', err);
+    return res.status(500).json('Internal Server Error');
   }
 });
 
 // login request
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  console.log(email, password)
-  res.json(login(email, password));
+app.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const ret = await databaseHandler.auth(email, password);
+    if (ret) {
+      return res.status(200).json('Login successful');
+    } else {
+      return res.status(401).json('Login failed');
+    }
+  } catch (error) {
+    console.err('Error during login:', err);
+    return res.status(500).json('Internal Server Error');
+  }
 });
 
-app.post('/addHabit', (req, res, next) => {
-  try {
-    const { name, description, users } = req.body
-    databaseHandler.addHabit(name, description, users)
-    return res.json('Habit added');
-  } catch (err) {
-    next(err);
-  }
+app.post('/addHabit', (req, res) => {
+  const { name, description, users } = req.body
+  databaseHandler.addHabit(name, description, users)
+  return res.status(200).json('Habit added')
 });

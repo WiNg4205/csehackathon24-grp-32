@@ -74,7 +74,12 @@ class DatabaseHandler {
   }
 
   async addUser(firstName, lastName, email, username, password) {
-    const Users = mongoose.model('Users', databaseHandler.userSchema)
+    const Users = mongoose.model('Users', databaseHandler.userSchema);
+    const existingUser = await Users.findOne({ username: username });
+    if (existingUser) {
+      return false;
+    }
+
     const user = {
       firstName: firstName,
       lastName: lastName,
@@ -82,9 +87,12 @@ class DatabaseHandler {
       username: username,
       password: password,
       habits: []
-    }
-    const newUser = new Users(user)
-    newUser.save()
+    };
+
+    const newUser = new Users(user);
+    await newUser.save();
+
+    return newUser;
   }
 
   async addHabit(name, description, users) {
@@ -103,6 +111,14 @@ class DatabaseHandler {
     const user = await Users.findOne({ userId: userId })
     user.habits.push(habitId)
     user.save()
+  }
+
+  async auth(email, password) {
+    const Users = mongoose.model('Users', databaseHandler.userSchema)
+    const user = await Users
+      .findOne({ email: email, password: password})
+      .exec()
+    return user !== null
   }
 }
 
