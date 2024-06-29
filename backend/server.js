@@ -19,3 +19,12 @@ process.on('SIGINT', () => {
   server.close(() => console.log('Shutting down server gracefully.'));
 });
 
+// Example get request
+app.get('/test', (req, res, next) => {
+  try {
+    return res.json('Hello Browser');
+  } catch (err) {
+    next(err);
+  }
+});
+
