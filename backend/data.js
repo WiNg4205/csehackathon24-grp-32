@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 const { Schema } = mongoose
-const uri = `mongodb://localhost:3000`
+const uri = `mongodb://localhost:27017`
 
 class DatabaseHandler {
   static habitSchema = new Schema({
@@ -63,7 +63,6 @@ class DatabaseHandler {
 
   async connect() {
     mongoose.connect(uri)
-    console.log('Connected to database')
   }
 
   async addUser(userId, firstName, lastName, username, password) {

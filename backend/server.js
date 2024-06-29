@@ -14,15 +14,25 @@ const server = app.listen(PORT, HOST, () => {
 
 })
 
-// For coverage, handle Ctrl+C gracefully
-process.on('SIGINT', () => {
-  server.close(() => console.log('Shutting down server gracefully.'));
-});
+// // For coverage, handle Ctrl+C gracefully
+// process.on('SIGINT', () => {
+//   server.close(() => console.log('Shutting down server gracefully.'));
+// });
 
 // Example get request
 app.get('/test', (req, res, next) => {
   try {
     return res.json('Hello Browser');
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/addUser', (req, res, next) => {
+  try {
+    const { userId, firstName, lastName, username, password } = req.body
+    databaseHandler.addUser(userId, firstName, lastName, username, password)
+    return res.json('User added');
   } catch (err) {
     next(err);
   }
