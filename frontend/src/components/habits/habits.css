@@ -1,0 +1,36 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children horizontally */
+    justify-content: flex-start; /* Align children to the start vertically */
+    height: 100vh; /* Make sure it fills the viewport height */
+    width: 100vw; /* Make sure it fills the viewport width */
+}
+
+.header {
+    width: 100%; /* Ensure the header takes full width */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    margin-top: 5vh;
+    font-size: 2rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around; /* Distribute boxes evenly with space around them */
+    width: 100%; /* Take full width of the container */
+    margin-bottom: 20px; /* Optional: space between the rows */
+    margin-top: 3rem;
+}
+
+.box {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    width: 30%; /* Each box takes up 30% of the row width */
+    height: 20vh; /* Example height */
+    background-color: #f0f0f0; /* Example background color */
+    border: 1px solid #ccc; /* Example border */
+    font-size: 2rem; /* Example font size */
+}
+
