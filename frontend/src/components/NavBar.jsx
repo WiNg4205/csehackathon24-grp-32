@@ -12,7 +12,8 @@ const NavBar = () => {
           flex: 1,
           borderRadius: 0,
           margin: '0px 1px',
-          border: '1px solid black'
+          border: '1px solid black',
+          fontWeight: 'bold'
         }}
         onClick={(event) => {
           event.preventDefault();
@@ -27,7 +28,8 @@ const NavBar = () => {
           flex: 1,
           borderRadius: 0,
           margin: '0px 1px',
-          border: '1px solid black'
+          border: '1px solid black',
+          fontWeight: 'bold'
         }}
         onClick={(event) => {
           event.preventDefault();
@@ -42,14 +44,15 @@ const NavBar = () => {
           flex: 1,
           borderRadius: 0,
           margin: '0px 1px',
-          border: '1px solid black'
+          border: '1px solid black',
+          fontWeight: 'bold'
         }}
         onClick={(event) => {
           event.preventDefault();
-          navigate('/profile')
+          navigate('/explore')
         }}
       >
-        My Profile
+        Explore
       </Button>
     </NavBarContainer>
   );

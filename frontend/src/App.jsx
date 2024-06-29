@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import FriendsList from './components/friendslist/FriendsList.jsx';
-import Profile from './components/profile/Profile.jsx';
+import Explore from './components/explore/Explore.jsx';
 
 function App () {
   return (
@@ -13,7 +13,7 @@ function App () {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register handleSubmit={null}/>} />
         <Route path='/friends' element={<FriendsList />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/explore' element={<Explore />} />
         <Route path="*" element={<Navigate to='/login' />} />
       </Routes>
     </BrowserRouter>

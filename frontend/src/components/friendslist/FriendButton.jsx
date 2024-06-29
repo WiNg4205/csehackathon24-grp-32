@@ -1,9 +1,9 @@
-import { FriendButtonContainer } from "../styledComponents";
+import { ButtonContainer } from "../styledComponents";
 
 const FriendButton = () => {
   // const { userName, habits } = props;
   return (
-    <FriendButtonContainer>
+    <ButtonContainer>
       <div>
         pfp here
       </div>
@@ -23,7 +23,7 @@ const FriendButton = () => {
           habits here
         </div>
       </div>
-    </FriendButtonContainer>
+    </ButtonContainer>
   );
 }
 

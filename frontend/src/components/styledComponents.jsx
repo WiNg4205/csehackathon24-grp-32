@@ -25,7 +25,7 @@ export const List = styled.div`
   overflow-y: scroll;
 `
 
-export const FriendButtonContainer = styled.button`
+export const ButtonContainer = styled.button`
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -41,5 +41,6 @@ export const NavBarContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   width: 30%;
-  height: 50px;
+  height: 70px;
+  padding-top: 1rem
 `
