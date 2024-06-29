@@ -64,6 +64,18 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/profile', (req, res) => {
+  const { userId } = req.body;
+  const user = databaseHandler.getUser(userId);
+  return res.status(200).json(user);
+});
+
+app.get('/friends', (req, res) => {
+  const { userId } = req.body;
+  const user = databaseHandler.getUser(userId);
+  return res.status(200).json(user.friends);
+});
+
 app.post('/addHabit', (req, res) => {
   const { name, description, users } = req.body
   databaseHandler.addHabit(name, description, users)
