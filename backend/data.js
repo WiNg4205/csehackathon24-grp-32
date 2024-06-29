@@ -65,6 +65,10 @@ class DatabaseHandler {
     mongoose.connect(uri)
   }
 
+  async disconnect() {
+    mongoose.disconnect()
+  }
+
   async addUser(userId, firstName, lastName, username, password) {
     const Users = mongoose.model('Users', databaseHandler.userSchema)
     const user = {

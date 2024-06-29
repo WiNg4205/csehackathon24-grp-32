@@ -14,14 +14,17 @@ const server = app.listen(PORT, HOST, () => {
 
 })
 
-// // For coverage, handle Ctrl+C gracefully
-// process.on('SIGINT', () => {
-//   server.close(() => console.log('Shutting down server gracefully.'));
-// });
+// For coverage, handle Ctrl+C gracefully
+process.on('SIGINT', () => {
+  server.close(() => console.log('Shutting down server gracefully.'));
+  databaseHandler.disconnect()
+});
 
 // Example get request
-app.get('/test', (req, res, next) => {
+app.post('/test', (req, res, next) => {
   try {
+    // const { a } = req.body;
+    console.log(req.body);
     return res.json('Hello Browser');
   } catch (err) {
     next(err);
@@ -30,6 +33,7 @@ app.get('/test', (req, res, next) => {
 
 app.post('/addUser', (req, res, next) => {
   try {
+    console.log(req.body)
     const { userId, firstName, lastName, username, password } = req.body
     databaseHandler.addUser(userId, firstName, lastName, username, password)
     return res.json('User added');
