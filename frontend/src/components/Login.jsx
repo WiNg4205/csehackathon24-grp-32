@@ -2,23 +2,19 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Error from './Error';
-// import { Link, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-// import { apiCallBody } from '../api';
-// import { checkStringInput } from '../helper.js';
+import { Link, useNavigate } from 'react-router-dom';
 import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
 import axios from 'axios';
 
 const Login = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [userEmail, setUserEmail] = useState('');
-  // const [userPassword, setUserPassword] = useState('');
-  // const [errorMessage, setErrorMessage] = useState('');
-  const [errorMessage] = useState('');
-  // const [errorVisible, setErrorVisible] = useState(false);
-  const [errorVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorVisible, setErrorVisible] = useState(false);
+
+  const handleShowError = () => setErrorVisible(true);
+  const handleCloseError = () => setErrorVisible(false);
 
   // const handleShowError = () => setErrorVisible(true);
   // const handleCloseError = () => setErrorVisible(false);
@@ -58,9 +54,12 @@ const Login = () => {
         email: email,
         password: password
       });
-
+      localStorage.setItem('currentUserID', userId);
+      navigate('/dashboard');
     } catch (error) {
-      console.error('Error submitting data:', error);
+      console.log('error', error);
+      setErrorMessage(error);
+      handleShowError();
     }
   };
 
@@ -68,8 +67,7 @@ const Login = () => {
     <FullPageFlex>
       <Error
         show={errorVisible}
-        // handleCloseError={handleCloseError}
-        handleCloseError={(event) => event.preventDefault()}
+        handleCloseError={handleCloseError}
         message={errorMessage}
       />
       <StyledContainer>
@@ -77,7 +75,7 @@ const Login = () => {
           id='loginForm'
           onSubmit={(event) => {
             event.preventDefault();
-            // submitLogin()
+            handleSubmit()
           }}
         >
           <h2>Login</h2>
