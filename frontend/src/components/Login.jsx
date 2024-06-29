@@ -18,6 +18,7 @@ export const StyledContainer = styled.div`
 `
 
 export const FullPageCentered = styled.div`
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
