@@ -149,6 +149,12 @@ class DatabaseHandler {
     return user
   }
 
+  async getHabit(habitId) {
+    const Habits = mongoose.model('Habits', databaseHandler.habitSchema)
+    const habit = await Habits.findById(habitId);
+    return habit
+  }
+
   async addFriend(userId, friendUsername) {
     const Users = mongoose.model('Users', databaseHandler.userSchema)
     const user1 = await Users.findById(userId)
@@ -166,13 +172,14 @@ class DatabaseHandler {
   }
 
   async uploadStreak(userId, habitId, image) {
-    const Users = mongoose.model('Users', databaseHandler.userSchema)
-    const user = await Users.findById(userId)
-    habit = user.habits[habitId]
-    habit.streak += 1
-    habit.image = image
-    habit.postTime = new Date()
-    user.save()
+    // const Users = mongoose.model('Users', databaseHandler.userSchema)
+    // const user = await Users.findById(userId)
+    // const habit = user.habits.get(habitId);
+    // console.log(habit, image)
+    // habit.streak += 1;
+    // habit.image = "success";
+    // habit.postTime = new Date();
+    // await user.save();
   }
 
   async hasUploadedStreak(userId, habitId) {
