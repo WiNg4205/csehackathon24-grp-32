@@ -141,26 +141,10 @@ const FriendsList = () => {
               />
             ))
           } */}
-          <FriendButton> here1 </FriendButton>
-          <FriendButton> here2 </FriendButton>
-          <FriendButton> here3 </FriendButton>
-          <FriendButton> here4 </FriendButton>
-          <FriendButton> here5 </FriendButton>
-          <FriendButton> here6 </FriendButton>
-          <FriendButton> here7 </FriendButton>
-          <FriendButton> here8 </FriendButton>
-          <FriendButton> here9 </FriendButton>
-          <FriendButton> here10 </FriendButton>
-          <FriendButton> here1 </FriendButton>
-          <FriendButton> here2 </FriendButton>
-          <FriendButton> here3 </FriendButton>
-          <FriendButton> here4 </FriendButton>
-          <FriendButton> here5 </FriendButton>
-          <FriendButton> here6 </FriendButton>
-          <FriendButton> here7 </FriendButton>
-          <FriendButton> here8 </FriendButton>
-          <FriendButton> here9 </FriendButton>
-          <FriendButton> here10 </FriendButton>
+          <FriendButton username={'csesoc'} habits={'Learning a new skill (coding)'} />
+          <FriendButton username={'bobbylee'} habits={'Meet up with a friend, have a chat'} />
+          <FriendButton username={'maxverstappen'} habits={'Meditate'} />
+          <FriendButton username={'maccas'} habits={'Cook something up'} />
         </List>
       </div>
       <NavBar />

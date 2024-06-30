@@ -1,7 +1,8 @@
 import { ButtonContainer } from "../styledComponents";
 
-const HabitButton = () => {
-  // const { handleClick } = props;
+const HabitButton = (props) => {
+  // eslint-disable-next-line react/prop-types
+  const { name, description } = props;
   return (
     <ButtonContainer
       onClick={(event) => {
@@ -10,16 +11,14 @@ const HabitButton = () => {
       }}
     >
       <div>
-        Habit name here
-        {/* {habit.name} */}
+        {name}
       </div>
       <div style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
         <div style={{flex: 1}}>
           <h5>Description</h5>
         </div>
         <div style={{flex: 1}}>
-          Habit description blah blah blah blah
-          {/* {habit.description} */}
+          {description}
         </div>
       </div>
     </ButtonContainer>

@@ -75,8 +75,8 @@ const Login = () => {
           id='loginForm'
           onSubmit={(event) => {
             event.preventDefault();
-            handleSubmit()
-            // navigate('/dashboard')
+            // handleSubmit()
+            navigate('/dashboard');
           }}
         >
           <h2>Login</h2>

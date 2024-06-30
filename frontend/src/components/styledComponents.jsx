@@ -51,9 +51,6 @@ export const NavBarContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 70%;
+  width: 30%;
   height: 50px;
-  position: fixed; /* Added to fix the position */
-  bottom: 5vh; /* Align to the bottom edge of the viewport */
-  margin-bottom: 2rem;
 `
