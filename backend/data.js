@@ -172,14 +172,14 @@ class DatabaseHandler {
   }
 
   async uploadStreak(userId, habitId, image) {
-    const Users = mongoose.model('Users', databaseHandler.userSchema)
-    const user = await Users.findById(userId)
-    const habit = user.habits.get(habitId);
-    console.log(habit, image)
-    habit.streak += 1;
-    habit.image = "success";
-    habit.postTime = new Date();
-    await user.save();
+    // const Users = mongoose.model('Users', databaseHandler.userSchema)
+    // const user = await Users.findById(userId)
+    // const habit = user.habits.get(habitId);
+    // console.log(habit, image)
+    // habit.streak += 1;
+    // habit.image = "success";
+    // habit.postTime = new Date();
+    // await user.save();
   }
 
   async hasUploadedStreak(userId, habitId) {
