@@ -95,12 +95,13 @@ const Explore = () => {
               />
             ))
           } */}
-          <HabitButton />
-          <HabitButton />
-          <HabitButton />
-          <HabitButton />
-          <HabitButton />
-          <HabitButton />
+          <HabitButton name={'Going out with a friend'} description={'Meet up with a friend and have a chat'}/>
+          <HabitButton name={'Walking'} description={'Walking somewhere'}/>
+          <HabitButton name={'Play a sport'} description={'Get moving'}/>
+          <HabitButton name={'Learn a new skill'} description={'Learn any skill'}/>
+          <HabitButton name={'Meditate'} description={'Acquire tranquility'}/>
+          <HabitButton name={'Read a book'} description={'Attain some knowledge'}/>
+          <HabitButton name={'Cook a recipe'} description={'Cooking something up'}/>
         </List>
       </div>
       <NavBar />

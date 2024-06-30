@@ -12,9 +12,7 @@ const NavBar = () => {
         style={{
           flex: 1,
           borderRadius: 0,
-          margin: '1px 1px',
           border: '1px solid black',
-          height: '12vh',
           padding: '0px 1px'
         }}
         onClick={(event) => {
@@ -29,9 +27,7 @@ const NavBar = () => {
         style={{
           flex: 1,
           borderRadius: 0,
-          margin: '1px 1px',
           border: '1px solid black',
-          height: '12vh',
           padding: '0px 1px'
         }}
         onClick={(event) => {
@@ -46,9 +42,7 @@ const NavBar = () => {
         style={{
           flex: 1,
           borderRadius: 0,
-          margin: '1px 1px',
           border: '1px solid black',
-          height: '12vh',
           padding: '0px 1px'
         }}
         onClick={(event) => {

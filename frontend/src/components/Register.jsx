@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Error from './Error.jsx';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { StyledContainer, FullPageFlex } from './styledComponents.jsx';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ const Register = () => {
   // const [userName, setUserName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [errorVisible, setErrorVisible] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleShowError = () => setErrorVisible(true);
   const handleCloseError = () => setErrorVisible(false);
@@ -64,7 +64,7 @@ const Register = () => {
           // }}
           onSubmit={(event) => {
             event.preventDefault();
-            // navigate('/dashboard');
+            navigate('/dashboard');
           }}
         >
           <h2>Register</h2>
