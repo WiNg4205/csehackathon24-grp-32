@@ -5,8 +5,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [habitNames, setHabitNames] = useState(['habit1', 'habit2', 'habit3', 'habit4', 'habit5', 'habit6']);
     const [habitIds, setHabitIds] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -52,7 +54,8 @@ const Dashboard = () => {
             } catch (error) {
                 console.error('Error uploading file:', error);
             }
-
+            
+            navigate('/habits')
             setShow(false);
         }
     };

@@ -48,7 +48,7 @@ const HabitsList = () => {
     <FullPageFlex>
       <div style={{padding: '1rem'}}>
         <h2>
-          Insert specific habit here
+          Walking
         </h2>
       </div>
       <div
